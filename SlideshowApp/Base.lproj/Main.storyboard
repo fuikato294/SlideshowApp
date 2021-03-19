@@ -72,6 +72,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="AdvButton" destination="m8d-Yi-rhb" id="Bif-IG-ANd"/>
+                        <outlet property="RevButton" destination="sKn-rY-2tr" id="Vax-M8-IG4"/>
                         <outlet property="UIButton" destination="qIY-bY-vhs" id="qCf-ck-rHI"/>
                         <outlet property="imageView" destination="I3m-dr-Cbx" id="ONB-ee-Dj5"/>
                     </connections>

@@ -11,6 +11,8 @@ class ViewController: UIViewController {
     
     
     @IBOutlet weak var UIButton: UIButton!
+    @IBOutlet weak var AdvButton: UIButton!
+    @IBOutlet weak var RevButton: UIButton!
     
     // 配列に指定するindex番号を宣言
     var nowIndex:Int = 0
@@ -55,6 +57,9 @@ class ViewController: UIViewController {
             // ボタンの名前を停止に変える
             UIButton.setTitle("停止", for: .normal)
             
+            AdvButton.isEnabled = false
+            RevButton.isEnabled = false
+            
         } else {
             // 停止時の処理を実装
             // タイマーを停止する
@@ -65,6 +70,9 @@ class ViewController: UIViewController {
 
             // ボタンの名前を停止に変える
             UIButton.setTitle("再生", for: .normal)
+            
+            AdvButton.isEnabled = true
+            RevButton.isEnabled = true
 
         }
     }
