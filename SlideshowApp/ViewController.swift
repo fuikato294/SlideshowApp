@@ -141,8 +141,6 @@ class ViewController: UIViewController {
             
         // timerがnilの場合(停止中)
         } else {
-            // タイマーを削除しておく(timer.invalidateだけだとtimerがnilにならないため)
-            timer = nil
             
             // ボタンの名前を再生に変える
             UIButton.setTitle("再生", for: .normal)
@@ -157,8 +155,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func unwind(_ segue: UIStoryboardSegue) {
+        // タイマーをnilにしておく
+        timer = nil
 
-        
     }
     
 }
