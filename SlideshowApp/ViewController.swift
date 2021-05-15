@@ -122,40 +122,29 @@ class ViewController: UIViewController {
         // imageArrayはVC内上部で画像の配列を宣言しているところから引っ張っている。
         // [nowIndex]は、19行目で宣言しているnowIndexという入れ物。アプリ上で現在表示されている画像チェックしているnowIndexのデータを遷移先に渡す
         resultViewController.image = imageArray[nowIndex]
-        
-        // タイマーを停止する
+ 
+        // timerがnilでない場合(再生中)
+        if (timer != nil) {
+
+            // 停止処理を実装
+            // タイマーを無効にする
             timer.invalidate()
             
-            // タイマーを削除しておく(timer.invalidateだけだとtimerがnilにならないため)
-            timer = nil
-    }
-    
-    @IBAction func unwind(_ segue: UIStoryboardSegue) {
-        // 再生中か停止しているかを判定
-        if (timer == nil) {
-            // 再生時の処理を実装
+            // ボタンの名前を再生に変える
+            UIButton.setTitle("再生", for: .normal)
             
-            // タイマーをセットする
-            timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(changeImage), userInfo: nil, repeats: true)
+            AdvButton.isEnabled = true
+            RevButton.isEnabled = true
             
-            // ボタンの名前を停止に変える
-            UIButton.setTitle("停止", for: .normal)
+            AdvButton.backgroundColor = UIColor(red: 52/255, green: 199/255, blue: 89/255, alpha: 1.0)
+            RevButton.backgroundColor = UIColor(red: 255/255, green: 59/255, blue: 48/255, alpha: 1.0)
             
-            AdvButton.isEnabled = false
-            RevButton.isEnabled = false
-            
-            AdvButton.backgroundColor = UIColor.gray
-            RevButton.backgroundColor = UIColor.gray
-            
+        // timerがnilの場合(停止中)
         } else {
-            // 停止時の処理を実装
-            // タイマーを停止する
-            timer.invalidate()
-            
             // タイマーを削除しておく(timer.invalidateだけだとtimerがnilにならないため)
             timer = nil
             
-            // ボタンの名前を停止に変える
+            // ボタンの名前を再生に変える
             UIButton.setTitle("再生", for: .normal)
             
             AdvButton.isEnabled = true
@@ -164,6 +153,11 @@ class ViewController: UIViewController {
             AdvButton.backgroundColor = UIColor(red: 52/255, green: 199/255, blue: 89/255, alpha: 1.0)
             RevButton.backgroundColor = UIColor(red: 255/255, green: 59/255, blue: 48/255, alpha: 1.0)
         }
+        
+    }
+    
+    @IBAction func unwind(_ segue: UIStoryboardSegue) {
+
         
     }
     
