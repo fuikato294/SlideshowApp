@@ -24,13 +24,17 @@ class ViewController: UIViewController {
     // スライドショーさせる画像の配列を宣言
     // UIImageという型の指定に、[]をつけることで「入れるのがUIImageなら、この箱にいくつ入れてもいいよ」という意味になる
     var imageArray:[UIImage] = [
-        UIImage(named: "No.3.jpg")!,
         UIImage(named: "No.1.jpg")!,
-        UIImage(named: "No.2.jpg")!
+        UIImage(named: "No.2.jpg")!,
+        UIImage(named: "No.3.jpg")!
     ]
     
     @IBOutlet weak var imageView: UIImageView!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        imageView.image = UIImage(named:"No.1.jpg")
+    }
     
     // 再生ボタンを押した時の処理
     @IBAction func slideShowButton(_ sender: Any) {
@@ -118,9 +122,49 @@ class ViewController: UIViewController {
         // imageArrayはVC内上部で画像の配列を宣言しているところから引っ張っている。
         // [nowIndex]は、19行目で宣言しているnowIndexという入れ物。アプリ上で現在表示されている画像チェックしているnowIndexのデータを遷移先に渡す
         resultViewController.image = imageArray[nowIndex]
+        
+        // タイマーを停止する
+            timer.invalidate()
+            
+            // タイマーを削除しておく(timer.invalidateだけだとtimerがnilにならないため)
+            timer = nil
     }
     
     @IBAction func unwind(_ segue: UIStoryboardSegue) {
+        // 再生中か停止しているかを判定
+        if (timer == nil) {
+            // 再生時の処理を実装
+            
+            // タイマーをセットする
+            timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(changeImage), userInfo: nil, repeats: true)
+            
+            // ボタンの名前を停止に変える
+            UIButton.setTitle("停止", for: .normal)
+            
+            AdvButton.isEnabled = false
+            RevButton.isEnabled = false
+            
+            AdvButton.backgroundColor = UIColor.gray
+            RevButton.backgroundColor = UIColor.gray
+            
+        } else {
+            // 停止時の処理を実装
+            // タイマーを停止する
+            timer.invalidate()
+            
+            // タイマーを削除しておく(timer.invalidateだけだとtimerがnilにならないため)
+            timer = nil
+            
+            // ボタンの名前を停止に変える
+            UIButton.setTitle("再生", for: .normal)
+            
+            AdvButton.isEnabled = true
+            RevButton.isEnabled = true
+            
+            AdvButton.backgroundColor = UIColor(red: 52/255, green: 199/255, blue: 89/255, alpha: 1.0)
+            RevButton.backgroundColor = UIColor(red: 255/255, green: 59/255, blue: 48/255, alpha: 1.0)
+        }
+        
     }
     
 }
